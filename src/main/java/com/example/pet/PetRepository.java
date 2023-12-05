@@ -1,7 +1,7 @@
-package com.example.user;
+package com.example.pet;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface PetRepository extends CrudRepository<Pet, Integer> {
     public Long countById(Integer id);
 }

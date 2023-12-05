@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body style="background: pink">
+<div class="container-fluid">
+    <div class="text-center"><h2>Adj hozzá új kisállatot!</h2></div>
+    <form th:action="@{/pets/save}" method="post" th:object="${pet}"
+          style="max-width: 500px; margin: 0 auto;">
+        <input type="hidden" th:field="*{id}">
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Chip szám:</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{chipszam}" class="form-control" required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Kisállat neve</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{kisallatneve}" class="form-control" required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Fajtája</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{fajtaja}" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Színe</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{szine}" class="form-control" required minlength="2" maxlength="45"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Gazdi:</label>
+                <div class="col-sm-8">
+                    <select th:field="*{user}" class="form-control" required>
+                        <option th:each="user : ${userList}" th:value="${user.id}" th:text="${user.lastName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
+                <button style="background-color: deeppink;border-color: black" type="submit" class="btn btn-primary m-2">Kisállat mentése</button>
+                <button type="button" class="btn btw-secondary m-2" onclick="cancelForm()">Kilépés</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location ="[[@{/pets}]]";
+    }
+</script>
+</body>
+</html>

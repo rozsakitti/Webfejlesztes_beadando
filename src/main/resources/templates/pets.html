@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Kisállatok</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
-<body>
-$END$
+<body style="background: pink">
+<div class="container-fluid text-center">
+    <div><h2>Kisállatok</h2></div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+
+    <div>
+        <div class="m-2">
+            <a  style="color: deeppink; border: 2px solid; border-radius: 10px; display: block; margin-top: 10px;" class="h2" th:href="@{/users}">Gazdik megjelenítése</a>
+        </div>
+        <table class="table table-bordered" style="border: 2px solid black;">
+            <thead class ="thead-dark">
+            <tr>
+                <th style="background: deeppink">ID</th>
+                <th style="background: deeppink">Chip szám</th>
+                <th style="background: deeppink">Kisállat neve</th>
+                <th style="background: deeppink">Fajtája</th>
+                <th style="background: deeppink">Színe</th>
+                <th style="background: deeppink">Gazdi</th>
+                <th style="background: deeppink"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="pet : ${listPets}">
+                <tr>
+                    <td>[[${pet.id}]]</td>
+                    <td>[[${pet.chipszam}]]</td>
+                    <td>[[${pet.kisallatneve}]]</td>
+                    <td>[[${pet.fajtaja}]]</td>
+                    <td>[[${pet.szine}]]</td>
+                    <td>[[${pet.user.lastName}]]</td>
+                    <td>
+                        <a style="color: deeppink" class="h4 mr-3" th:href="@{'/pets/edit/' + ${pet.id}}">Szerkesztés</a>
+                        <a style="color: deeppink" class="h4" th:href="@{'/pets/delete/' + ${pet.id}}">Törlés</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <a style="background: deeppink; border: black; font-size: 1.5em;" class="btn btn-primary mt-3 btn-lg" th:href="@{/pets/new}">Kisállat hozzáadása</a>
+    <a style="background: deeppink; border: black; font-size: 1.5em;" class="btn btn-primary mt-3 btn-lg" th:href="@{/}">Vissza</a>
+</div>
 </body>
 </html>

@@ -1,5 +1,7 @@
-package com.example.user;
+package com.example.pet;
 
+import com.example.user.User;
+import com.example.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,56 +13,60 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-public class UserController {
-    @Autowired private UserService service;
+public class PetController {
+    @Autowired private PetService service;
+    @Autowired private UserService userservice;
 
-    @GetMapping("/users")
-    public String showUserList(Model model){
-        List<User> listUsers = service.listAll();
-        model.addAttribute("listUsers", listUsers);
 
-        return "users";
+    @GetMapping("/pets")
+    public String showPetList(Model model){
+        List<Pet> listPets = service.listAll();
+        model.addAttribute("listPets", listPets);
+
+        return "pets";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/pets/new")
     public String showNewForm(Model model){
-        model.addAttribute("user", new User());
-        model.addAttribute("pageTitle","Add New User");
-        return "user_form";
+        List<User> userList = userservice.listAll();
+        model.addAttribute("pet", new Pet());
+        model.addAttribute("userList", userList);
+        model.addAttribute("pageTitle","Add New Pet");
+        return "pet_form";
     }
 
-    @PostMapping("/users/save")
-    public String saveUser(User user, RedirectAttributes ra){
-        service.save(user);
-        ra.addFlashAttribute("message", "The user has been save succesfully");
-        return "redirect:/users";
+    @PostMapping("/pets/save")
+    public String savePet(Pet pet, RedirectAttributes ra){
+        service.save(pet);
+        ra.addFlashAttribute("message", "The pet has been save succesfully");
+        return "redirect:/pets";
     }
 
-    @GetMapping("/users/edit/{id}")
+    @GetMapping("/pets/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         try {
-            User user = service.get(id);
-            model.addAttribute("user", user);
-            model.addAttribute("pageTitle","Edit User (ID: " + id + ")");
+            Pet pet = service.get(id);
+            List<User> userList = userservice.listAll();
+            model.addAttribute("pet", pet);
+            model.addAttribute("userList", userList);
+            model.addAttribute("pageTitle","Edit Pet (ID: " + id + ")");
 
-            return "user_form";
-        } catch (UserNotFoundException e) {
+            return "pet_form";
+        } catch (PetNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/users";
+            return "redirect:/pets";
         }
     }
 
-    @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra){
+    @GetMapping("/pets/delete/{id}")
+    public String deletePet(@PathVariable("id") Integer id, RedirectAttributes ra){
         try {
             service.delete(id);
-            ra.addFlashAttribute("message", "The user ID "+ id + " has been deleted");
-        } catch (UserNotFoundException e) {
+            ra.addFlashAttribute("message", "The Pet ID "+ id + " has been deleted");
+        } catch (PetNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
 
         }
-        return "redirect:/users";
+        return "redirect:/pets";
     }
-
-
 }

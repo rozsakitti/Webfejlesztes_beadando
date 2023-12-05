@@ -1,6 +1,10 @@
 package com.example.user;
 
+import com.example.pet.Pet;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +23,10 @@ public class User {
     private String lastName;
 
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Pet> pets = new ArrayList<>();
+
 
     public Integer getId() {
         return id;

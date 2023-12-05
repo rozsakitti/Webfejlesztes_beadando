@@ -1,24 +1,29 @@
-package com.example.user;
+package com.example.pet;
 
+import com.example.user.User;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "pets")
+public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private String email;
-    @Column(length = 15, nullable = false)
-    private String password;
-    @Column(length = 45, nullable = false, name="first_name")
-    private String firstName;
-    @Column(length = 45, nullable = false, name="last_name")
-    private String lastName;
+    private String chipszam;
+    @Column(length=50, nullable = false, name="kisallatneve")
+    private String kisallatneve;
 
-    private boolean enabled;
+    @Column(length = 50, nullable = false, name="fajtaja")
+    private String fajtaja;
+
+    @Column(length = 15, nullable = false, name="szine")
+    private String szine;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -28,55 +33,57 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getChipszam() {
+        return chipszam;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setChipszam(String chipszam) {
+        this.chipszam = chipszam;
     }
 
-    public String getPassword() {
-        return password;
+    public String getKisallatneve() {
+        return kisallatneve;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setKisallatneve(String kisallatneve) {
+        this.kisallatneve = kisallatneve;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFajtaja() {
+        return fajtaja;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFajtaja(String fajtaja) {
+        this.fajtaja = fajtaja;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSzine() {
+        return szine;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSzine(String szine) {
+        this.szine = szine;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Pet{" +
                 "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", chipszam='" + chipszam + '\'' +
+                ", kisallatneve='" + kisallatneve + '\'' +
+                ", fajtaja='" + fajtaja + '\'' +
+                ", szine='" + szine + '\'' +
+                ", user=" + user +
                 '}';
     }
-
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 }
+

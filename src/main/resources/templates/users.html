@@ -7,16 +7,17 @@
 </head>
 <body style="background: pink">
 <div class="container-fluid text-center">
-    <div><h2>Felhasználók</h2></div>
+    <div><h2>Gazdik</h2></div>
     <div class="m-2">
-        <a  style="color: deeppink; border: 2px solid; border-radius: 10px; display: block; margin-top: 10px;" class="h3" th:href="@{/users/new}">Felhasználó hozzáadása</a>
     </div>
 
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
 
-
+    <div class="m-2">
+        <a  style="color: deeppink; border: 2px solid; border-radius: 10px; display: block; margin-top: 10px;" class="h2" th:href="@{/pets}">Kisállatok megjelenítése</a>
+    </div>
     <div>
         <table class="table table-bordered" style="border: 2px solid black;">
             <thead class ="thead-dark">
@@ -46,8 +47,8 @@
             </tbody>
         </table>
     </div>
-    <a style="background: deeppink;border: black" class="btn btn-primary mt-3" th:href="@{/}">Vissza</a>
-
+    <a style="background: deeppink; border: black; font-size: 1.5em;" class="btn btn-primary mt-3 btn-lg" th:href="@{/users/new}">Gazdi hozzáadása</a>
+    <a style="background: deeppink; border: black; font-size: 1.5em;" class="btn btn-primary mt-3 btn-lg" th:href="@{/}">Vissza</a>
 </div>
 </body>
 </html>

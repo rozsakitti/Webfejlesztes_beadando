@@ -1,7 +1,7 @@
-package com.example.user;
+package com.example.pet;
 
-public class UserNotFoundException extends Throwable {
-    public UserNotFoundException(String message) {
+public class PetNotFoundException extends Throwable {
+    public PetNotFoundException(String message) {
         super(message);
     }
 }
