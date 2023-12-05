@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body style="background: pink">
+<div class="container-fluid text-center">
+    <div><h2>Felhasználók</h2></div>
+    <div class="m-2">
+        <a  style="color: deeppink; border: 2px solid; border-radius: 10px; display: block; margin-top: 10px;" class="h3" th:href="@{/users/new}">Felhasználó hozzáadása</a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+
+    <div>
+        <table class="table table-bordered" style="border: 2px solid black;">
+            <thead class ="thead-dark">
+                <tr>
+                    <th style="background: deeppink">ID</th>
+                    <th style="background: deeppink">E-mail cím</th>
+                    <th style="background: deeppink">Vezetéknév</th>
+                    <th style="background: deeppink">Keresztnév</th>
+                    <th style="background: deeppink">Van-e kisállata? &#129428;</th>
+                    <th style="background: deeppink"></th>
+                </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${listUsers}">
+                <tr>
+                    <td>[[${user.id}]]</td>
+                    <td>[[${user.email}]]</td>
+                    <td>[[${user.firstName}]]</td>
+                    <td>[[${user.lastName}]]</td>
+                    <td>[[${user.enabled}]]</td>
+                    <td>
+                        <a style="color: deeppink" class="h4 mr-3" th:href="@{'/users/edit/' + ${user.id}}">Szerkesztés</a>
+                        <a style="color: deeppink" class="h4" th:href="@{'/users/delete/' + ${user.id}}">Törlés</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <a style="background: deeppink;border: black" class="btn btn-primary mt-3" th:href="@{/}">Vissza</a>
+
+</div>
+</body>
+</html>
