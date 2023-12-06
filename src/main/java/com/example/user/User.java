@@ -24,7 +24,7 @@ public class User {
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Pet> pets = new ArrayList<>();
 
 
