@@ -38,8 +38,7 @@
                     <td>[[${pet.kisallatneve}]]</td>
                     <td>[[${pet.fajtaja}]]</td>
                     <td>[[${pet.szine}]]</td>
-                    <td>[[${pet.user.lastName}]]</td>
-                    <td>
+                    <td th:text="${pet.getUser() != null} ? ${pet.getUser().lastName}: 'Nincs gazdija'">[[${pet.user.lastName}]]</td>                    <td>
                         <a style="color: deeppink" class="h4 mr-3" th:href="@{'/pets/edit/' + ${pet.id}}">Szerkesztés</a>
                         <a style="color: deeppink" class="h4" th:href="@{'/pets/delete/' + ${pet.id}}">Törlés</a>
                     </td>

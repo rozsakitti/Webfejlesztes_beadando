@@ -64,7 +64,7 @@ public class PetController {
             service.delete(id);
             ra.addFlashAttribute("message", "The Pet ID "+ id + " has been deleted");
         } catch (PetNotFoundException e) {
-            ra.addFlashAttribute("message", e.getMessage());
+            ra.addFlashAttribute("message", "e.getMessage()");
 
         }
         return "redirect:/pets";

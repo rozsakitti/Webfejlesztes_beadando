@@ -15,18 +15,28 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(length = 15, nullable = false)
+    @Column(length = 20, nullable = false)
     private String password;
-    @Column(length = 45, nullable = false, name="first_name")
+    @Column(length = 50, nullable = false, name="first_name")
     private String firstName;
-    @Column(length = 45, nullable = false, name="last_name")
+    @Column(length = 50, nullable = false, name="last_name")
     private String lastName;
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    //@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private List<Pet> pets = new ArrayList<>();
 
+    @PreRemove
+    private void preRemove() {
+        pets.forEach( pet -> pet.setUser(null));
+    }
+
+    public List<Pet> getPets(){ return pets;}
+    public void setPets(List<Pet> pets) { this.pets = pets;}
 
     public Integer getId() {
         return id;
